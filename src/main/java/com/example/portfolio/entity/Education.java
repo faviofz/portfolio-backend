@@ -11,8 +11,15 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
-@Table(name = "EDUCATION")
+@Table(name = "EDUCATIONS")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Education {
 
     @Id
@@ -34,44 +41,8 @@ public class Education {
     @Temporal(value = TemporalType.DATE)
     private Date ended_year;
 
-    public Long getId() {
-        return id;
-    }
+//    @JsonBackReference
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    private Person person;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getStarted_year() {
-        return started_year;
-    }
-
-    public void setStarted_year(Date started_year) {
-        this.started_year = started_year;
-    }
-
-    public Date getEnded_year() {
-        return ended_year;
-    }
-
-    public void setEnded_year(Date ended_year) {
-        this.ended_year = ended_year;
-    }
-    
 }
