@@ -16,21 +16,23 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "PROYECTS")
-@Data @NoArgsConstructor @AllArgsConstructor
-public class Proyect {
+@Table(name = "PROJECTS")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
-    
+
     @Column(name = "TITLE", length = 50)
     private String title;
-    
-    @Column(name="DESCRIPTION", length = 200)
+
+    @Column(name = "DESCRIPTION", length = 200)
     private String description;
-    
+
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     private Person person;

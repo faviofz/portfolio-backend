@@ -39,7 +39,7 @@ public class PersonController {
                 person.getUrl_profile_image(),
                 person.getExperiences(),
                 person.getEducations(),
-                person.getProyects());
+                person.getProjects());
     }
     
     @PostMapping("/create")
@@ -52,7 +52,7 @@ public class PersonController {
         person.setUrl_profile_image(dto.getUrl_profile_image());
         person.setExperiences(dto.getExperiences());
         person.setEducations(dto.getEducations());
-        person.setProyects(dto.getProyects());
+        person.setProjects(dto.getProjects());
         this.personService.savePerson(person);
     }
     
@@ -66,7 +66,7 @@ public class PersonController {
         person.setUrl_profile_image(dto.getUrl_profile_image());
         person.setExperiences(dto.getExperiences());
         person.setEducations(dto.getEducations());
-        person.setProyects(dto.getProyects());
+        person.setProjects(dto.getProjects());
         this.personService.savePerson(person);
     }
     

@@ -20,7 +20,9 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "PERSONS")
-@Data @NoArgsConstructor @AllArgsConstructor
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Person {
 
     @Id
@@ -42,21 +44,21 @@ public class Person {
 
     @Column(name = "ABOUT_ME", nullable = true, length = 400)
     private String about_me;
-    
+
 //    @JsonManagedReference
     @JsonIgnore
-    @OneToMany(/*mappedBy = "person",*/ cascade = CascadeType.ALL)
+    @OneToMany(/* mappedBy = "person", */ cascade = CascadeType.ALL)
     @JoinColumn(name = "person_id")
     private List<Experience> experiences;
-    
+
 //    @JsonManagedReference
-    @OneToMany(/*mappedBy = "person",*/ cascade = CascadeType.ALL)
+    @OneToMany(/* mappedBy = "person", */ cascade = CascadeType.ALL)
     @JoinColumn(name = "person_id")
     private List<Education> educations;
-    
+
 //    @JsonManagedReference
-    @OneToMany(/*mappedBy = "person",*/ cascade = CascadeType.ALL)
+    @OneToMany(/* mappedBy = "person", */ cascade = CascadeType.ALL)
     @JoinColumn(name = "person_id")
-    private List<Proyect> proyects;
-    
+    private List<Project> projects;
+
 }
