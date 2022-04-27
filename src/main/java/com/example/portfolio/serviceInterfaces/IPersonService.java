@@ -1,4 +1,4 @@
-package com.example.portfolio.service;
+package com.example.portfolio.serviceInterfaces;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ public interface IPersonService {
     
     public List<Person> getAllPersons();
     
-    public void savePerson(Person per);
+    public void savePerson(Person person);
     
     public void deletePerson(Long id);
     

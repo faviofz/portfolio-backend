@@ -25,40 +25,49 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Person {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
+	private Long id;
 
-    @Column(name = "FIRST_NAME", nullable = false, length = 20)
-    private String first_name = "first_name";
+	@Column(name = "FIRST_NAME", nullable = false, length = 20)
+	private String first_name = "first_name";
 
-    @Column(name = "LAST_NAME", nullable = false, length = 20)
-    private String last_name;
+	@Column(name = "LAST_NAME", nullable = false, length = 20)
+	private String last_name;
 
-    @Column(name = "URL_PROFILE_IMAGE", nullable = true, length = 100)
-    private String url_profile_image;
+	@Column(name = "URL_PROFILE_IMAGE", nullable = true, length = 100)
+	private String url_profile_image;
 
-    @Column(name = "URL_BANNER_IMAGE", nullable = true, length = 100)
-    private String url_banner_image;
+	@Column(name = "URL_BANNER_IMAGE", nullable = true, length = 100)
+	private String url_banner_image;
 
-    @Column(name = "ABOUT_ME", nullable = true, length = 400)
-    private String about_me;
-
-//    @JsonManagedReference
-    @JsonIgnore
-    @OneToMany(/* mappedBy = "person", */ cascade = CascadeType.ALL)
-    @JoinColumn(name = "person_id")
-    private List<Experience> experiences;
+	@Column(name = "ABOUT_ME", nullable = true, length = 400)
+	private String about_me;
 
 //    @JsonManagedReference
-    @OneToMany(/* mappedBy = "person", */ cascade = CascadeType.ALL)
-    @JoinColumn(name = "person_id")
-    private List<Education> educations;
+	@OneToMany(/* mappedBy = "person", */ cascade = CascadeType.ALL)
+	@JoinColumn(name = "person_id")
+	private List<Experience> experiences;
 
 //    @JsonManagedReference
-    @OneToMany(/* mappedBy = "person", */ cascade = CascadeType.ALL)
-    @JoinColumn(name = "person_id")
-    private List<Project> projects;
+	@OneToMany(/* mappedBy = "person", */ cascade = CascadeType.ALL)
+	@JoinColumn(name = "person_id")
+	private List<Education> educations;
+
+//    @JsonManagedReference
+	@OneToMany(/* mappedBy = "person", */ cascade = CascadeType.ALL)
+	@JoinColumn(name = "person_id")
+	private List<Project> projects;
+
+	public Person(String first_name, String last_name, String url_profile_image, String url_banner_image,
+			String about_me) {
+		super();
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.url_profile_image = url_profile_image;
+		this.url_banner_image = url_banner_image;
+		this.about_me = about_me;
+	}
 
 }
