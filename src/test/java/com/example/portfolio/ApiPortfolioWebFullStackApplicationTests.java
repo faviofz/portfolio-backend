@@ -9,9 +9,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.example.portfolio.entity.MyUser;
 import com.example.portfolio.repository.UserRepository;
+import com.example.portfolio.service.PersonService;
 
 @SpringBootTest
 class ApiPortfolioWebFullStackApplicationTests {
+	
+	@Autowired
+	private PersonService personService;
 
     @Autowired
     private UserRepository userRepository;
@@ -26,5 +30,5 @@ class ApiPortfolioWebFullStackApplicationTests {
 	    
 	    assertThat(retorno.getPassword()).isEqualTo(user.getPassword());
 	}
-
+	
 }
