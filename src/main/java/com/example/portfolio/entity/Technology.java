@@ -38,9 +38,8 @@ public class Technology {
   @ToString.Exclude
   private Person person;
 
-  public Technology(String name, Person person) {
+  public Technology(String name) {
     this.name = name;
-    this.person = person;
   }
 
   @Override

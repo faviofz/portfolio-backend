@@ -22,11 +22,14 @@ public class ExperienceDto implements Serializable {
 
   private Date ended_year;
 
+  private Long person_id;
+
   public ExperienceDto(Experience experience) {
     this.id = experience.getId();
     this.title = experience.getTitle();
     this.description = experience.getDescription();
     this.started_year = experience.getStarted_year();
     this.ended_year = experience.getEnded_year();
+    this.person_id = experience.getPerson().getId();
   }
 }

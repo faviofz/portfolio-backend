@@ -10,18 +10,20 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PersonDto implements Serializable {
-
+  
+  private Long id;
   private String first_name;
-
+  
   private String last_name;
-
+  
   private String url_profile_image;
-
+  
   private String url_banner_image;
-
+  
   private String about_me;
-
+  
   public PersonDto(Person person) {
+    this.id = person.getId();
     this.first_name = person.getFirst_name();
     this.last_name = person.getLast_name();
     this.url_profile_image = person.getUrl_profile_image();
