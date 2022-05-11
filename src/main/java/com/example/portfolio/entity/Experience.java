@@ -56,12 +56,20 @@ public class Experience {
       String title, String description, Date started_year, Date ended_year,
       Person person
   ) {
-    super();
     this.title = title;
     this.description = description;
     this.started_year = started_year;
     this.ended_year = ended_year;
     this.person = person;
+  }
+  
+  public Experience(
+      String title, String description, Date started_year, Date ended_year
+  ) {
+    this.title = title;
+    this.description = description;
+    this.started_year = started_year;
+    this.ended_year = ended_year;
   }
   
   @Override
