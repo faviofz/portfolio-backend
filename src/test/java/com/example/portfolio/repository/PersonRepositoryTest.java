@@ -42,8 +42,8 @@ class PersonRepositoryTest {
     Person savedPerson = this.personRepository.save(person);
     
     Assertions.assertThat(savedPerson.getId()).isNotNull();
-    Assertions.assertThat(savedPerson.getFirst_name())
-        .isEqualTo(person.getFirst_name());
+    Assertions.assertThat(savedPerson.getFirstName())
+        .isEqualTo(person.getFirstName());
   }
   
   @Test

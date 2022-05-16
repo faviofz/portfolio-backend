@@ -1,6 +1,5 @@
 package com.example.portfolio.dto;
 
-import com.example.portfolio.entity.Person;
 import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class PersonDto implements Serializable {
   
   private Long id;
+  
   private String first_name;
   
   private String last_name;
@@ -22,12 +22,14 @@ public class PersonDto implements Serializable {
   
   private String about_me;
   
-  public PersonDto(Person person) {
-    this.id = person.getId();
-    this.first_name = person.getFirst_name();
-    this.last_name = person.getLast_name();
-    this.url_profile_image = person.getUrl_profile_image();
-    this.url_banner_image = person.getUrl_banner_image();
-    this.about_me = person.getAbout_me();
+  public PersonDto(
+      String first_name, String last_name, String url_profile_image, String url_banner_image,
+      String about_me
+  ) {
+    this.first_name = first_name;
+    this.last_name = last_name;
+    this.url_profile_image = url_profile_image;
+    this.url_banner_image = url_banner_image;
+    this.about_me = about_me;
   }
 }

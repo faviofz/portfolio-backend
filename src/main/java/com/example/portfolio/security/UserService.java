@@ -12,8 +12,8 @@
 //import org.springframework.security.core.userdetails.UsernameNotFoundException;
 //import org.springframework.stereotype.Service;
 //
-//import com.example.portfolio.entity.MyUser;
-//import com.example.portfolio.repository.UserRepository;
+//import com.example.portfolio.security.MyUser;
+//import com.example.portfolio.security.UserRepository;
 //
 //@Service
 //public class UserService implements UserDetailsService {

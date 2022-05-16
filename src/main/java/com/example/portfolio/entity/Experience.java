@@ -1,6 +1,5 @@
 package com.example.portfolio.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -41,35 +40,34 @@ public class Experience {
   
   @Column(name = "STARTED_YEAR")
   @Temporal(value = TemporalType.DATE)
-  private Date started_year;
+  private Date startedYear;
   
   @Column(name = "ENDED_YEAR")
   @Temporal(value = TemporalType.DATE)
-  private Date ended_year;
+  private Date endedYear;
   
-  @JsonBackReference
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @ToString.Exclude
   private Person person;
   
   public Experience(
-      String title, String description, Date started_year, Date ended_year,
+      String title, String description, Date startedYear, Date endedYear,
       Person person
   ) {
     this.title = title;
     this.description = description;
-    this.started_year = started_year;
-    this.ended_year = ended_year;
+    this.startedYear = startedYear;
+    this.endedYear = endedYear;
     this.person = person;
   }
   
   public Experience(
-      String title, String description, Date started_year, Date ended_year
+      String title, String description, Date startedYear, Date endedYear
   ) {
     this.title = title;
     this.description = description;
-    this.started_year = started_year;
-    this.ended_year = ended_year;
+    this.startedYear = startedYear;
+    this.endedYear = endedYear;
   }
   
   @Override
@@ -83,13 +81,13 @@ public class Experience {
     Experience experience = (Experience) o;
     return Objects.equals(id, experience.id) && Objects.equals(title, experience.title)
         && Objects.equals(description, experience.description) && Objects.equals(
-        started_year,
-        experience.started_year) && Objects.equals(ended_year, experience.ended_year)
+        startedYear,
+        experience.startedYear) && Objects.equals(endedYear, experience.endedYear)
         && Objects.equals(person, experience.person);
   }
   
   @Override
   public int hashCode() {
-    return Objects.hash(id, title, description, started_year, ended_year, person);
+    return Objects.hash(id, title, description, startedYear, endedYear, person);
   }
 }

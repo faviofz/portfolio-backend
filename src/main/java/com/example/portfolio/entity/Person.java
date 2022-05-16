@@ -6,10 +6,10 @@ import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -33,48 +33,43 @@ public class Person {
   private Long id;
   
   @Column(name = "FIRST_NAME", nullable = false, length = 20)
-  private String first_name = "first_name";
+  private String firstName;
   
   @Column(name = "LAST_NAME", nullable = false, length = 20)
-  private String last_name;
+  private String lastName;
   
   @Column(name = "URL_PROFILE_IMAGE", length = 100)
-  private String url_profile_image;
+  private String urlProfileImage;
   
   @Column(name = "URL_BANNER_IMAGE", length = 100)
-  private String url_banner_image;
+  private String urlBannerImage;
   
   @Column(name = "ABOUT_ME", length = 400)
-  private String about_me;
+  private String aboutMe;
   
-  //    @JsonManagedReference
   @ToString.Exclude
-  @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
   private List<Experience> experiences = new ArrayList<>();
   
-  //    @JsonManagedReference
   @ToString.Exclude
-  @OneToMany(cascade = {CascadeType.ALL})
-  @JoinColumn(name = "person_id")
+  @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
   private List<Education> educations = new ArrayList<>();
   
-  //    @JsonManagedReference
   @ToString.Exclude
-  @OneToMany(cascade = {CascadeType.ALL})
-  @JoinColumn(name = "person_id")
+  @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
   private List<Project> projects = new ArrayList<>();
   
   public Person(
-      String first_name, String last_name, String url_profile_image,
-      String url_banner_image,
-      String about_me
+      String firstName, String lastName, String urlProfileImage,
+      String urlBannerImage,
+      String aboutMe
   ) {
     super();
-    this.first_name = first_name;
-    this.last_name = last_name;
-    this.url_profile_image = url_profile_image;
-    this.url_banner_image = url_banner_image;
-    this.about_me = about_me;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.urlProfileImage = urlProfileImage;
+    this.urlBannerImage = urlBannerImage;
+    this.aboutMe = aboutMe;
   }
   
   @Override
@@ -86,16 +81,16 @@ public class Person {
       return false;
     }
     Person person = (Person) o;
-    return Objects.equals(id, person.id) && Objects.equals(first_name, person.first_name)
-        && Objects.equals(last_name, person.last_name) && Objects.equals(
-        url_profile_image,
-        person.url_profile_image) && Objects.equals(url_banner_image, person.url_banner_image)
-        && Objects.equals(about_me, person.about_me);
+    return Objects.equals(id, person.id) && Objects.equals(firstName, person.firstName)
+        && Objects.equals(lastName, person.lastName) && Objects.equals(
+        urlProfileImage,
+        person.urlProfileImage) && Objects.equals(urlBannerImage, person.urlBannerImage)
+        && Objects.equals(aboutMe, person.aboutMe);
   }
   
   @Override
   public int hashCode() {
-    return Objects.hash(id, first_name, last_name, url_profile_image, url_banner_image, about_me);
+    return Objects.hash(id, firstName, lastName, urlProfileImage, urlBannerImage, aboutMe);
   }
 }
 

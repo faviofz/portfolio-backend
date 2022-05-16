@@ -1,6 +1,5 @@
 package com.example.portfolio.dto;
 
-import com.example.portfolio.entity.Education;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.AllArgsConstructor;
@@ -11,22 +10,26 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EducationDto implements Serializable {
-
+  
   private Long id;
-
+  
   private String title;
-
+  
   private String description;
-
+  
   private Date started_year;
-
+  
   private Date ended_year;
-
-  public EducationDto(Education education) {
-    this.id = education.getId();
-    this.title = education.getTitle();
-    this.description = education.getDescription();
-    this.started_year = education.getStarted_year();
-    this.ended_year = education.getEnded_year();
+  
+  private Long person_id;
+  
+  public EducationDto(
+      Long id, String title, String description, Date started_year, Date ended_year
+  ) {
+    this.id = id;
+    this.title = title;
+    this.description = description;
+    this.started_year = started_year;
+    this.ended_year = ended_year;
   }
 }

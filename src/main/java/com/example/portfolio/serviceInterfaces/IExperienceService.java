@@ -1,16 +1,16 @@
 package com.example.portfolio.serviceInterfaces;
 
-import com.example.portfolio.entity.Experience;
+import com.example.portfolio.dto.ExperienceDto;
 import java.util.List;
 
 public interface IExperienceService {
-
-  List<Experience> getAllExperiences();
-
-  void saveExperience(Experience experience);
-
+  
+  List<ExperienceDto> getAllExperiences();
+  
+  void saveExperience(ExperienceDto experienceDto);
+  
   void deleteExperience(Long id);
-
-  Experience findExperienceById(Long id);
-
+  
+  ExperienceDto findExperienceById(Long id);
+  
 }

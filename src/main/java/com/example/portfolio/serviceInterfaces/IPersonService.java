@@ -1,16 +1,16 @@
 package com.example.portfolio.serviceInterfaces;
 
-import com.example.portfolio.entity.Person;
+import com.example.portfolio.dto.PersonDto;
 import java.util.List;
 
 public interface IPersonService {
-
-  List<Person> getAllPersons();
-
-  void savePerson(Person person);
-
+  
+  List<PersonDto> getAllPersons();
+  
+  void savePerson(PersonDto personDto);
+  
   void deletePerson(Long id);
-
-  Person findPersonById(Long id);
-
+  
+  PersonDto findPersonById(Long id);
+  
 }

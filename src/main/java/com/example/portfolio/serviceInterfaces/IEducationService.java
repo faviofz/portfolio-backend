@@ -1,16 +1,16 @@
 package com.example.portfolio.serviceInterfaces;
 
-import com.example.portfolio.entity.Education;
+import com.example.portfolio.dto.EducationDto;
 import java.util.List;
 
 public interface IEducationService {
-
-  List<Education> getAllEducations();
-
-  void saveEducation(Education education);
-
+  
+  List<EducationDto> getAllEducations();
+  
+  void saveEducation(EducationDto educationDto);
+  
   void deleteEducation(Long id);
-
-  Education findEducationById(Long id);
-
+  
+  EducationDto findEducationById(Long id);
+  
 }

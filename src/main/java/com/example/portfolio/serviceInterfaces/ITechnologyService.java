@@ -1,15 +1,15 @@
 package com.example.portfolio.serviceInterfaces;
 
-import com.example.portfolio.entity.Technology;
+import com.example.portfolio.dto.TechnologyDto;
 import java.util.List;
 
 public interface ITechnologyService {
-
-  List<Technology> getAllTechnologies();
-
-  void saveTechnology(Technology technology);
-
+  
+  List<TechnologyDto> getAllTechnologies();
+  
+  void saveTechnology(TechnologyDto technologyDto);
+  
   void deleteTechnology(Long id);
-
-  Technology findTechnologyById(Long id);
+  
+  TechnologyDto findTechnologyById(Long id);
 }

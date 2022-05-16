@@ -1,6 +1,5 @@
 package com.example.portfolio.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,28 +23,28 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Project {
-
+  
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "ID")
   private Long id;
-
+  
   @Column(name = "TITLE", length = 50)
   private String title;
-
+  
   @Column(name = "DESCRIPTION", length = 200)
   private String description;
-
-  @JsonBackReference
-  @ManyToOne(fetch = FetchType.LAZY)
+  
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @ToString.Exclude
   private Person person;
-
-  public Project(String title, String description) {
+  
+  public Project(String title, String description, Person person) {
     this.title = title;
     this.description = description;
+    this.person = person;
   }
-
+  
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -58,7 +57,7 @@ public class Project {
     return Objects.equals(id, project.id) && Objects.equals(title, project.title) && Objects.equals(
         description, project.description);
   }
-
+  
   @Override
   public int hashCode() {
     return Objects.hash(id, title, description);

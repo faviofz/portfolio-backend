@@ -2,8 +2,8 @@ package com.example.portfolio;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.example.portfolio.entity.MyUser;
-import com.example.portfolio.repository.UserRepository;
+import com.example.portfolio.security.MyUser;
+import com.example.portfolio.security.UserRepository;
 import com.example.portfolio.service.PersonService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
