@@ -6,7 +6,6 @@ import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -48,21 +47,23 @@ public class Person {
   private String aboutMe;
   
   @ToString.Exclude
-  @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Experience> experiences = new ArrayList<>();
   
   @ToString.Exclude
-  @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Education> educations = new ArrayList<>();
   
   @ToString.Exclude
-  @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Project> projects = new ArrayList<>();
   
-  public Person(
-      String firstName, String lastName, String urlProfileImage,
-      String urlBannerImage,
-      String aboutMe
+  @ToString.Exclude
+  @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Technology> technologies = new ArrayList<>();
+  
+  public Person(String firstName, String lastName, String urlProfileImage, String urlBannerImage,
+                String aboutMe
   ) {
     super();
     this.firstName = firstName;
@@ -81,17 +82,58 @@ public class Person {
       return false;
     }
     Person person = (Person) o;
-    return Objects.equals(id, person.id) && Objects.equals(firstName, person.firstName)
-        && Objects.equals(lastName, person.lastName) && Objects.equals(
-        urlProfileImage,
-        person.urlProfileImage) && Objects.equals(urlBannerImage, person.urlBannerImage)
-        && Objects.equals(aboutMe, person.aboutMe);
+    return Objects.equals(id, person.id)
+           && Objects.equals(firstName, person.firstName)
+           && Objects.equals(lastName, person.lastName)
+           && Objects.equals(urlProfileImage, person.urlProfileImage)
+           && Objects.equals(urlBannerImage, person.urlBannerImage)
+           && Objects.equals(aboutMe, person.aboutMe);
   }
   
   @Override
   public int hashCode() {
     return Objects.hash(id, firstName, lastName, urlProfileImage, urlBannerImage, aboutMe);
   }
+  
+  //  public void addExperience(Experience experience) {
+  //    experience.setPerson(this);
+  //    this.experiences.add(experience);
+  //  }
+  //
+  //  public void removeExperience(Experience experience) {
+  //    experience.setPerson(null);
+  //    this.experiences.remove(experience);
+  //  }
+  //
+  //  public void addEducation(Education education) {
+  //    education.setPerson(this);
+  //    this.educations.add(education);
+  //  }
+  //
+  //  public void removeEducation(Education education) {
+  //    education.setPerson(null);
+  //    this.educations.remove(education);
+  //  }
+  //
+  //  public void addProject(Project project) {
+  //    project.setPerson(this);
+  //    this.projects.add(project);
+  //  }
+  //
+  //  public void removeProject(Project project) {
+  //    project.setPerson(null);
+  //    this.projects.remove(project);
+  //  }
+  //
+  //  public void addTechnology(Technology technology) {
+  //    technology.setPerson(this);
+  //    this.technologies.add(technology);
+  //  }
+  //
+  //  public void removeTechnology(Technology technology) {
+  //    technology.setPerson(this);
+  //    this.technologies.remove(technology);
+  //  }
 }
 
 
