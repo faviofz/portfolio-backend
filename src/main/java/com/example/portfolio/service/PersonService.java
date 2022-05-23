@@ -17,42 +17,50 @@ import java.util.List;
 import java.util.Objects;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
+@CacheConfig(cacheNames = "person")
 public class PersonService implements IPersonService {
   
   @Autowired
   private PersonRepository personRepository;
   
-  @Override
-  public List<PersonDto> getAllPersons() {
-    return this.personRepository.findAll()
-                                .stream()
-                                .map(p -> new PersonDto(p.getId(),
-                                                        p.getFirstName(),
-                                                        p.getLastName(),
-                                                        p.getUrlProfileImage(),
-                                                        p.getUrlBannerImage(),
-                                                        p.getAboutMe()))
-                                .toList();
-  }
+  //  @Override
+  //  @Cacheable("allpersonscache")
+  //  public List<PersonDto> getAllPersons() {
+  //    return this.personRepository.findAll()
+  //                                .stream()
+  //                                .map(p -> new PersonDto(p.getId(),
+  //                                                        p.getFirstName(),
+  //                                                        p.getLastName(),
+  //                                                        p.getUrlProfileImage(),
+  //                                                        p.getUrlBannerImage(),
+  //                                                        p.getAboutMe()))
+  //                                .toList();
+  //  }
   
   @Override
   public void savePerson(PersonDto personDto) {
-    this.personRepository.save(new Person(personDto.getFirst_name(),
-                                          personDto.getLast_name(),
-                                          personDto.getUrl_profile_image(),
-                                          personDto.getUrl_banner_image(),
-                                          personDto.getAbout_me()));
+    this.personRepository.save(new Person(personDto.getFirstName(),
+                                          personDto.getLastName(),
+                                          personDto.getUrlProfileImage(),
+                                          personDto.getUrlBannerImage(),
+                                          personDto.getAboutMe()));
   }
   
   @Override
+  @CacheEvict(key = "#id")
   public void deletePerson(Long id) {
     this.personRepository.deleteById(id);
   }
   
   @Override
+  @Cacheable(key = "#id")
   public PersonDto findPersonById(Long id) {
     Person person = this.personRepository.findById(id)
                                          .orElseThrow(() -> new PersonNotFoundException(id));
@@ -65,28 +73,29 @@ public class PersonService implements IPersonService {
   }
   
   @Override
+  @CachePut(key = "#id")
   public void updatePerson(Long id, PersonDto personDto) {
     Person person = this.personRepository.findById(id)
                                          .orElseThrow(() -> new PersonNotFoundException(id));
     
-    person.setFirstName(personDto.getFirst_name());
-    person.setLastName(personDto.getLast_name());
-    person.setUrlProfileImage(personDto.getUrl_profile_image());
-    person.setUrlBannerImage(personDto.getUrl_banner_image());
-    person.setAboutMe(personDto.getAbout_me());
+    person.setFirstName(personDto.getFirstName());
+    person.setLastName(personDto.getLastName());
+    person.setUrlProfileImage(personDto.getUrlProfileImage());
+    person.setUrlBannerImage(personDto.getUrlBannerImage());
+    person.setAboutMe(personDto.getAboutMe());
     
     this.personRepository.save(person);
   }
   
   @Override
   public List<ExperienceDto> getExperiencesOfPerson(Long id) {
-    Person person =
-        this.personRepository.findById(id)
-                             .orElseThrow(() -> new PersonNotFoundException(id));
+    Person person = this.personRepository.findById(id)
+                                         .orElseThrow(() -> new PersonNotFoundException(id));
     
     return person.getExperiences()
                  .stream()
-                 .map(e -> new ExperienceDto(e.getId(), e.getTitle(),
+                 .map(e -> new ExperienceDto(e.getId(),
+                                             e.getTitle(),
                                              e.getDescription(),
                                              e.getStartedYear(),
                                              e.getEndedYear()))
@@ -138,13 +147,13 @@ public class PersonService implements IPersonService {
   
   @Override
   public List<EducationDto> getEducationsOfPerson(Long id) {
-    Person person =
-        this.personRepository.findById(id)
-                             .orElseThrow(() -> new PersonNotFoundException(id));
+    Person person = this.personRepository.findById(id)
+                                         .orElseThrow(() -> new PersonNotFoundException(id));
     
     return person.getEducations()
                  .stream()
-                 .map(e -> new EducationDto(e.getId(), e.getTitle(),
+                 .map(e -> new EducationDto(e.getId(),
+                                            e.getTitle(),
                                             e.getDescription(),
                                             e.getStartedYear(),
                                             e.getEndedYear()))
@@ -197,14 +206,12 @@ public class PersonService implements IPersonService {
   
   @Override
   public List<ProjectDto> getProjectsOfPerson(Long id) {
-    Person person =
-        this.personRepository.findById(id)
-                             .orElseThrow(() -> new PersonNotFoundException(id));
+    Person person = this.personRepository.findById(id)
+                                         .orElseThrow(() -> new PersonNotFoundException(id));
     
     return person.getProjects()
                  .stream()
-                 .map(p -> new ProjectDto(p.getId(), p.getTitle(),
-                                          p.getDescription()))
+                 .map(p -> new ProjectDto(p.getId(), p.getTitle(), p.getDescription()))
                  .toList();
     
   }
@@ -250,9 +257,8 @@ public class PersonService implements IPersonService {
   
   @Override
   public List<TechnologyDto> getTechnologiesOfPerson(Long id) {
-    Person person =
-        this.personRepository.findById(id)
-                             .orElseThrow(() -> new PersonNotFoundException(id));
+    Person person = this.personRepository.findById(id)
+                                         .orElseThrow(() -> new PersonNotFoundException(id));
     
     return person.getTechnologies()
                  .stream()
@@ -279,8 +285,7 @@ public class PersonService implements IPersonService {
     
     Technology technology = person.getTechnologies()
                                   .stream()
-                                  .filter(t -> Objects.equals(t.getId(),
-                                                              technology_id))
+                                  .filter(t -> Objects.equals(t.getId(), technology_id))
                                   .findFirst()
                                   .orElseThrow(EntityNotFoundException::new);
     technology.setName(technologyDto.getName());

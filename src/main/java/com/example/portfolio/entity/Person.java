@@ -95,45 +95,6 @@ public class Person {
     return Objects.hash(id, firstName, lastName, urlProfileImage, urlBannerImage, aboutMe);
   }
   
-  //  public void addExperience(Experience experience) {
-  //    experience.setPerson(this);
-  //    this.experiences.add(experience);
-  //  }
-  //
-  //  public void removeExperience(Experience experience) {
-  //    experience.setPerson(null);
-  //    this.experiences.remove(experience);
-  //  }
-  //
-  //  public void addEducation(Education education) {
-  //    education.setPerson(this);
-  //    this.educations.add(education);
-  //  }
-  //
-  //  public void removeEducation(Education education) {
-  //    education.setPerson(null);
-  //    this.educations.remove(education);
-  //  }
-  //
-  //  public void addProject(Project project) {
-  //    project.setPerson(this);
-  //    this.projects.add(project);
-  //  }
-  //
-  //  public void removeProject(Project project) {
-  //    project.setPerson(null);
-  //    this.projects.remove(project);
-  //  }
-  //
-  //  public void addTechnology(Technology technology) {
-  //    technology.setPerson(this);
-  //    this.technologies.add(technology);
-  //  }
-  //
-  //  public void removeTechnology(Technology technology) {
-  //    technology.setPerson(this);
-  //    this.technologies.remove(technology);
-  //  }
 }
 
 

@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface IPersonService {
   
-  List<PersonDto> getAllPersons();
+  //  List<PersonDto> getAllPersons();
   
   void savePerson(PersonDto personDto);
   

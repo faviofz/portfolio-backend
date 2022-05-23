@@ -1,4 +1,4 @@
-package com.example.portfolio.security;
+package com.example.portfolio.security.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +19,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class MyUser {
+public class User {
   
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,4 +31,8 @@ public class MyUser {
   @Column(name = "PASSWORD", nullable = false)
   private String password;
   
+  public User(String username, String password) {
+    this.username = username;
+    this.password = password;
+  }
 }

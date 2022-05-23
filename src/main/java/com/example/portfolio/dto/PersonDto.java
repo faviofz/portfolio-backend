@@ -12,24 +12,24 @@ public class PersonDto implements Serializable {
   
   private Long id;
   
-  private String first_name;
+  private String firstName;
   
-  private String last_name;
+  private String lastName;
   
-  private String url_profile_image;
+  private String urlProfileImage;
   
-  private String url_banner_image;
+  private String urlBannerImage;
   
-  private String about_me;
+  private String aboutMe;
   
   public PersonDto(
-      String first_name, String last_name, String url_profile_image, String url_banner_image,
-      String about_me
+      String firstName, String lastName, String urlProfileImage, String urlBannerImage,
+      String aboutMe
   ) {
-    this.first_name = first_name;
-    this.last_name = last_name;
-    this.url_profile_image = url_profile_image;
-    this.url_banner_image = url_banner_image;
-    this.about_me = about_me;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.urlProfileImage = urlProfileImage;
+    this.urlBannerImage = urlBannerImage;
+    this.aboutMe = aboutMe;
   }
 }

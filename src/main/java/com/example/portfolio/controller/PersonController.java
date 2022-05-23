@@ -8,6 +8,7 @@ import com.example.portfolio.dto.TechnologyDto;
 import com.example.portfolio.serviceInterfaces.IPersonService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(PersonController.PERSONS)
+@RequestMapping("/api" + PersonController.PERSONS)
 public class PersonController {
   
   public static final String PERSONS = "/persons";
@@ -40,8 +41,11 @@ public class PersonController {
   
   @GetMapping(ID)
   public ResponseEntity<PersonDto> getPerson(@PathVariable Long id) {
-    return ResponseEntity.ok(this.personService.findPersonById(id));
+    return ResponseEntity.ok()
+                         .cacheControl(CacheControl.noCache())
+                         .body(this.personService.findPersonById(id));
   }
+  
   
   @GetMapping(ID + EXPERIENCES)
   public ResponseEntity<List<ExperienceDto>> getAllExperiencesOfPerson(@PathVariable Long id) {
@@ -111,8 +115,11 @@ public class PersonController {
   }
   
   @PutMapping(ID)
-  public void editPerson(@PathVariable Long id, @RequestBody PersonDto personDto) {
+  public ResponseEntity<?> editPerson(@PathVariable Long id, @RequestBody PersonDto personDto) {
     this.personService.updatePerson(id, personDto);
+    
+    return ResponseEntity.noContent()
+                         .build();
   }
   
   @PutMapping(ID + EXPERIENCES + "/{experience_id}")
