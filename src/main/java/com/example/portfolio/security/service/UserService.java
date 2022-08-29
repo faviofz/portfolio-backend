@@ -4,7 +4,6 @@ import com.example.portfolio.security.entity.User;
 import com.example.portfolio.security.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,14 +23,10 @@ public class UserService implements UserDetailsService {
       throws UsernameNotFoundException {
     User user;
     List<GrantedAuthority> roles = new ArrayList<>();
-    if (Objects.equals(username, "favio")) {
-      user = new User(username, "$2a$12$Fz9w2kpeU9xUjFWJjEgRQOcQImzD.NFd9WkImEf85xCs0IVRDK7RC");
-      roles.add(new SimpleGrantedAuthority("ADMIN"));
-    } else {
-      user = this.userRepository.findByUsername(username)
-                                .orElseThrow(() -> new UsernameNotFoundException(username));
-      roles.add(new SimpleGrantedAuthority("USER"));
-    }
+    
+    user = this.userRepository.findByUsername(username)
+                              .orElseThrow(() -> new UsernameNotFoundException(username));
+    roles.add(new SimpleGrantedAuthority("ADMIN"));
     
     return new org.springframework.security.core.userdetails.User(user.getUsername(),
                                                                   user.getPassword(),

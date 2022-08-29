@@ -1,7 +1,8 @@
-package com.example.portfolio.security;
+package com.example.portfolio.security.filter;
 
 import com.example.portfolio.security.service.JwtService;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,38 +13,48 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Slf4j
-public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
+public class AuthorizationFilter extends BasicAuthenticationFilter {
   
   @Autowired
-  JwtService jwtService;
+  private JwtService jwtService;
   
-  public JwtAuthorizationFilter(AuthenticationManager manager) {
-    super(manager);
+  public AuthorizationFilter(AuthenticationManager authenticationManager) {
+    super(authenticationManager);
   }
   
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-                                  FilterChain filterChain
-  ) throws ServletException, IOException {
+                                  FilterChain chain
+  ) throws IOException, ServletException {
+    String header = request.getHeader(HttpHeaders.AUTHORIZATION);
     
+    if (header != null) {
+      UsernamePasswordAuthenticationToken authenticationToken = authenticate(request);
+      
+      SecurityContextHolder.getContext()
+                           .setAuthentication(authenticationToken);
+    }
+    chain.doFilter(request, response);
+  }
+  
+  private UsernamePasswordAuthenticationToken authenticate(HttpServletRequest request) {
+    String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
     String token, username;
-    final String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
     if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
       log.info(">>>FILTER JWT");
       token = authorizationHeader.substring("Bearer ".length());
       username = this.jwtService.getClaims(token)
                                 .getSubject();
-      UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-          username,
-          null);
-      authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-      SecurityContextHolder.getContext()
-                           .setAuthentication(authToken);
+      
+      if (username != null && jwtService.isValidToken(token, username)) {
+        return new UsernamePasswordAuthenticationToken(
+            username,
+            null, new ArrayList<>());
+      }
     }
-    filterChain.doFilter(request, response);
+    return null;
   }
 }
