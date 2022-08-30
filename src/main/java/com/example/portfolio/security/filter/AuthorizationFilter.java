@@ -31,7 +31,7 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
   ) throws IOException, ServletException {
     String header = request.getHeader(HttpHeaders.AUTHORIZATION);
     
-    if (header != null) {
+    if (header != null && header.startsWith("Bearer ")) {
       UsernamePasswordAuthenticationToken authenticationToken = authenticate(request);
       
       SecurityContextHolder.getContext()

@@ -30,24 +30,11 @@ public class PersonService implements IPersonService {
   @Autowired
   private PersonRepository personRepository;
   
-  //  @Override
-  //  @Cacheable("allpersonscache")
-  //  public List<PersonDto> getAllPersons() {
-  //    return this.personRepository.findAll()
-  //                                .stream()
-  //                                .map(p -> new PersonDto(p.getId(),
-  //                                                        p.getFirstName(),
-  //                                                        p.getLastName(),
-  //                                                        p.getUrlProfileImage(),
-  //                                                        p.getUrlBannerImage(),
-  //                                                        p.getAboutMe()))
-  //                                .toList();
-  //  }
-  
   @Override
   public void savePerson(PersonDto personDto) {
     this.personRepository.save(new Person(personDto.getFirstName(),
                                           personDto.getLastName(),
+                                          personDto.getOccupation(),
                                           personDto.getUrlProfileImage(),
                                           personDto.getUrlBannerImage(),
                                           personDto.getAboutMe()));
@@ -67,6 +54,7 @@ public class PersonService implements IPersonService {
     return new PersonDto(person.getId(),
                          person.getFirstName(),
                          person.getLastName(),
+                         person.getOccupation(),
                          person.getUrlProfileImage(),
                          person.getUrlBannerImage(),
                          person.getAboutMe());
@@ -80,6 +68,7 @@ public class PersonService implements IPersonService {
     
     person.setFirstName(personDto.getFirstName());
     person.setLastName(personDto.getLastName());
+    person.setOccupation(personDto.getOccupation());
     person.setUrlProfileImage(personDto.getUrlProfileImage());
     person.setUrlBannerImage(personDto.getUrlBannerImage());
     person.setAboutMe(personDto.getAboutMe());

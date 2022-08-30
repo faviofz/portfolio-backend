@@ -37,6 +37,9 @@ public class Person {
   @Column(name = "LAST_NAME", nullable = false, length = 20)
   private String lastName;
   
+  @Column(name = "OCCUPATION", nullable = false, length = 20)
+  private String occupation;
+  
   @Column(name = "URL_PROFILE_IMAGE", length = 100)
   private String urlProfileImage;
   
@@ -62,12 +65,14 @@ public class Person {
   @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Technology> technologies = new ArrayList<>();
   
-  public Person(String firstName, String lastName, String urlProfileImage, String urlBannerImage,
+  public Person(String firstName, String lastName, String occupation, String urlProfileImage,
+                String urlBannerImage,
                 String aboutMe
   ) {
     super();
     this.firstName = firstName;
     this.lastName = lastName;
+    this.occupation = occupation;
     this.urlProfileImage = urlProfileImage;
     this.urlBannerImage = urlBannerImage;
     this.aboutMe = aboutMe;
@@ -75,26 +80,22 @@ public class Person {
   
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (!(o instanceof Person)) {
-      return false;
-    }
+    if (this == o) { return true; }
+    if (!(o instanceof Person)) { return false; }
     Person person = (Person) o;
-    return Objects.equals(id, person.id)
-           && Objects.equals(firstName, person.firstName)
-           && Objects.equals(lastName, person.lastName)
-           && Objects.equals(urlProfileImage, person.urlProfileImage)
-           && Objects.equals(urlBannerImage, person.urlBannerImage)
-           && Objects.equals(aboutMe, person.aboutMe);
+    return id.equals(person.id) && Objects.equals(firstName, person.firstName) &&
+           Objects.equals(lastName, person.lastName) && Objects.equals(occupation,
+                                                                       person.occupation) &&
+           Objects.equals(urlProfileImage, person.urlProfileImage) &&
+           Objects.equals(urlBannerImage, person.urlBannerImage) &&
+           Objects.equals(aboutMe, person.aboutMe);
   }
   
   @Override
   public int hashCode() {
-    return Objects.hash(id, firstName, lastName, urlProfileImage, urlBannerImage, aboutMe);
+    return Objects.hash(id, firstName, lastName, occupation, urlProfileImage, urlBannerImage,
+                        aboutMe);
   }
-  
 }
 
 

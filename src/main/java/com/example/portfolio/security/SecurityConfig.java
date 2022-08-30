@@ -55,15 +55,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     
     http.authorizeRequests()
-        .antMatchers(HttpMethod.GET, "/api/persons/1")
+        .antMatchers(HttpMethod.GET, "/api/**")
         .permitAll()
-        .antMatchers(HttpMethod.POST, "/api/persons")
-        .authenticated()
-        .antMatchers(HttpMethod.GET, "/api/persons/1/experiences")
-        .authenticated()
-        .antMatchers(HttpMethod.POST, "/auth")
-        .permitAll();
-    
+        .antMatchers("/api/**")
+        .authenticated();
   }
   
   @Bean

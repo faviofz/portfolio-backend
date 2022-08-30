@@ -14,6 +14,8 @@ public class PersonDto implements Serializable {
   
   private String firstName;
   
+  private String occupation;
+  
   private String lastName;
   
   private String urlProfileImage;
@@ -23,11 +25,13 @@ public class PersonDto implements Serializable {
   private String aboutMe;
   
   public PersonDto(
-      String firstName, String lastName, String urlProfileImage, String urlBannerImage,
+      String firstName, String lastName, String occupation, String urlProfileImage,
+      String urlBannerImage,
       String aboutMe
   ) {
     this.firstName = firstName;
     this.lastName = lastName;
+    this.occupation = occupation;
     this.urlProfileImage = urlProfileImage;
     this.urlBannerImage = urlBannerImage;
     this.aboutMe = aboutMe;
